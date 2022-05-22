@@ -4,6 +4,7 @@ import com.ewecarreira.library.api.resource.dto.BookDTO;
 import com.ewecarreira.library.model.entity.Book;
 import com.ewecarreira.library.service.BookService;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,24 +20,16 @@ public class BookController {
     @Autowired
     BookService bookService;
 
+    @Autowired
+    ModelMapper modelMapper;
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public BookDTO create(@RequestBody BookDTO bookDTO) {
-        Book toBook = Book.builder()
-                .title(bookDTO.getTitle())
-                .autor(bookDTO.getAutor())
-                .isbn(bookDTO.getIsbn())
-                .build();
-
-        Book book = bookService.save(toBook);
-
-        BookDTO toBookDto = BookDTO.builder()
-                .id(book.getId())
-                .title(book.getTitle())
-                .autor(book.getAutor())
-                .isbn(book.getIsbn())
-                .build();
-
-        return toBookDto;
+    public BookDTO create(@RequestBody BookDTO request) {
+        Book book = modelMapper.map(request, Book.class);
+        Book bookSaved = bookService.save(book);
+        BookDTO bookDTO = modelMapper.map(bookSaved, BookDTO.class);
+        
+        return bookDTO;
     }
 }

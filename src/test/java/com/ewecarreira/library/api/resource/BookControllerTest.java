@@ -64,6 +64,7 @@ public class BookControllerTest {
                 mockMvc.perform(request)
                                 .andExpect(MockMvcResultMatchers.status().isCreated())
                                 .andExpect(MockMvcResultMatchers.jsonPath("id").isNotEmpty())
+                                .andExpect(MockMvcResultMatchers.jsonPath("id").value(1L))
                                 .andExpect(MockMvcResultMatchers.jsonPath("title").value(dto.getTitle()))
                                 .andExpect(MockMvcResultMatchers.jsonPath("autor").value(dto.getAutor()))
                                 .andExpect(MockMvcResultMatchers.jsonPath("isbn").value(dto.getIsbn()));
