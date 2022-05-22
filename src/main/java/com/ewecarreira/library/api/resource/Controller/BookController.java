@@ -1,4 +1,4 @@
-package com.ewecarreira.library.api.resource.Controller;
+package com.ewecarreira.library.api.resource.controller;
 
 import com.ewecarreira.library.api.resource.dto.BookDTO;
 import com.ewecarreira.library.model.entity.Book;

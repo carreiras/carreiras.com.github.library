@@ -6,10 +6,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
-public class TddLibraryApiApplication {
+public class LibraryApiApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(TddLibraryApiApplication.class, args);
+		SpringApplication.run(LibraryApiApplication.class, args);
 	}
 
 	@Bean

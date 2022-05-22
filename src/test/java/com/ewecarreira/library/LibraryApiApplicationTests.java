@@ -3,7 +3,7 @@ package com.ewecarreira.library;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class TddLibraryApiApplicationTests {
+class LibraryApiApplicationTests {
 
 	// @Test
 	// void contextLoads() {
