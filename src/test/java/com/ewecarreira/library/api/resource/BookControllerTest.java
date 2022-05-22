@@ -1,5 +1,6 @@
 package com.ewecarreira.library.api.resource;
 
+import com.ewecarreira.library.api.resource.dto.BookDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.junit.jupiter.api.DisplayName;
@@ -30,7 +31,13 @@ public class BookControllerTest {
     @Test
     @DisplayName("Deve criar um livro com sucesso")
     public void createBookTest() throws Exception {
-        String json = new ObjectMapper().writeValueAsString(null);
+        BookDto dto = BookDto.builder()
+                .title("Titulo")
+                .autor("Autor")
+                .isbn("123456789")
+                .build();
+
+        String json = new ObjectMapper().writeValueAsString(dto);
 
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders.post(BOOK_API)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -40,9 +47,9 @@ public class BookControllerTest {
         mvc.perform(request)
                 .andExpect(MockMvcResultMatchers.status().isCreated())
                 .andExpect(MockMvcResultMatchers.jsonPath("id").isNotEmpty())
-                .andExpect(MockMvcResultMatchers.jsonPath("title").value("Titulo"))
-                .andExpect(MockMvcResultMatchers.jsonPath("autor").value("Autor"))
-                .andExpect(MockMvcResultMatchers.jsonPath("isbn").value("123456789"));
+                .andExpect(MockMvcResultMatchers.jsonPath("title").value(dto.getTitle()))
+                .andExpect(MockMvcResultMatchers.jsonPath("autor").value(dto.getAutor()))
+                .andExpect(MockMvcResultMatchers.jsonPath("isbn").value(dto.getIsbn()));
     }
 
     @Test
