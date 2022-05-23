@@ -4,7 +4,6 @@ import com.ewecarreira.library.model.entity.Book;
 import com.ewecarreira.library.model.repository.BookRepository;
 import com.ewecarreira.library.service.BookService;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
