@@ -1,11 +1,10 @@
 package com.ewecarreira.library.api.resource.controller;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
-import com.ewecarreira.library.api.exception.ApiErrors;
 import com.ewecarreira.library.api.resource.dto.BookDTO;
+import com.ewecarreira.library.exception.ApiErrors;
+import com.ewecarreira.library.exception.BusinessException;
 import com.ewecarreira.library.model.entity.Book;
 import com.ewecarreira.library.service.BookService;
 
@@ -13,7 +12,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -48,5 +46,11 @@ public class BookController {
         BindingResult bindingResult = ex.getBindingResult();
         
         return new ApiErrors(bindingResult);        
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(BusinessException.class)
+    public ApiErrors handleBusinessExceptions(BusinessException ex) {
+        return new ApiErrors(ex);        
     }
 }
