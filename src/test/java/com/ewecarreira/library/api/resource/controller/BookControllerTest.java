@@ -1,4 +1,4 @@
-package com.ewecarreira.library.api.resource;
+package com.ewecarreira.library.api.resource.controller;
 
 import com.ewecarreira.library.api.resource.dto.BookDTO;
 import com.ewecarreira.library.exception.BusinessException;

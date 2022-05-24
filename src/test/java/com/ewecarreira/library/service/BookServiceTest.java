@@ -1,7 +1,5 @@
 package com.ewecarreira.library.service;
 
-import static org.junit.jupiter.api.DynamicContainer.dynamicContainer;
-
 import com.ewecarreira.library.exception.BusinessException;
 import com.ewecarreira.library.model.entity.Book;
 import com.ewecarreira.library.model.repository.BookRepository;
