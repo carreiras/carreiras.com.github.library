@@ -52,7 +52,8 @@ public class BookControllerTest {
                                 .isbn("123456789")
                                 .build();
 
-                BDDMockito.given(bookService.save(Mockito.any(Book.class))).willReturn(savedBook);
+                BDDMockito.given(bookService.save(Mockito.any(Book.class)))
+                                .willReturn(savedBook);
 
                 String json = new ObjectMapper().writeValueAsString(bookDTO);
 
@@ -116,7 +117,8 @@ public class BookControllerTest {
                                 .autor("Autor")
                                 .isbn("123456789")
                                 .build();
-                BDDMockito.given(bookService.getById(id)).willReturn(Optional.of(book));
+                BDDMockito.given(bookService.getById(id))
+                                .willReturn(Optional.of(book));
 
                 MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get(BOOK_API.concat("/" + id))
                                 .accept(MediaType.APPLICATION_JSON);
@@ -133,17 +135,35 @@ public class BookControllerTest {
         @Test
         @DisplayName("Deve retornar Recource Not Found quando o livro procurado não existir")
         public void bookNotFound() throws Exception {
-                // Long id = 1L;
-                // Book book = Book.builder()
-                // .id(id)
-                // .title("Titulo")
-                // .autor("Autor")
-                // .isbn("123456789")
-                // .build();
-                BDDMockito.given(bookService.getById(Mockito.anyLong())).willReturn(Optional.empty());
+                BDDMockito.given(bookService.getById(Mockito.anyLong()))
+                                .willReturn(Optional.empty());
 
                 MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get(BOOK_API.concat("/" + 1L))
                                 .accept(MediaType.APPLICATION_JSON);
+
+                mockMvc.perform(request)
+                                .andExpect(MockMvcResultMatchers.status().isNotFound());
+        }
+
+        @Test
+        @DisplayName("Deve deletar um livro")
+        public void deleteBook() throws Exception {
+                BDDMockito.given(bookService.getById(Mockito.anyLong()))
+                                .willReturn(Optional.of(Book.builder().id(1L).build()));
+
+                MockHttpServletRequestBuilder request = MockMvcRequestBuilders.delete(BOOK_API.concat("/" + 1L));
+
+                mockMvc.perform(request)
+                                .andExpect(MockMvcResultMatchers.status().isNoContent());
+        }
+
+        @Test
+        @DisplayName("Deve retornar Resource Not Found quando não encontrar um livro para deletar")
+        public void deleteInexistentBook() throws Exception {
+                BDDMockito.given(bookService.getById(Mockito.anyLong()))
+                                .willReturn(Optional.empty());
+
+                MockHttpServletRequestBuilder request = MockMvcRequestBuilders.delete(BOOK_API.concat("/" + 1L));
 
                 mockMvc.perform(request)
                                 .andExpect(MockMvcResultMatchers.status().isNotFound());
