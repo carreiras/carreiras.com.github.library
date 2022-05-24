@@ -1,5 +1,6 @@
 package com.ewecarreira.library.service.impl;
 
+import com.ewecarreira.library.exception.BusinessException;
 import com.ewecarreira.library.model.entity.Book;
 import com.ewecarreira.library.model.repository.BookRepository;
 import com.ewecarreira.library.service.BookService;
@@ -17,7 +18,9 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book save(Book book) {
-        // return bookRepository.save(book);
+        if (bookRepository.existsByIsbn(book.getIsbn())) {
+            throw new BusinessException("Isbn já cadastrado.");
+        }
         return bookRepository.save(book);
     }
 }
