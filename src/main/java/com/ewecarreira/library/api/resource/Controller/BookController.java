@@ -14,6 +14,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,13 +32,19 @@ public class BookController {
     @Autowired
     ModelMapper modelMapper;
 
+    @GetMapping("/{id}")
+    public BookDTO get(@PathVariable Long id) {
+        Book book = bookService.getById(id).get();
+        return modelMapper.map(book, BookDTO.class);
+    }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public BookDTO create(@RequestBody @Valid BookDTO request) {
         Book book = modelMapper.map(request, Book.class);
         Book bookSaved = bookService.save(book);
         BookDTO bookDTO = modelMapper.map(bookSaved, BookDTO.class);
-        
+
         return bookDTO;
     }
 
@@ -44,13 +52,13 @@ public class BookController {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ApiErrors handleValidationExceptions(MethodArgumentNotValidException ex) {
         BindingResult bindingResult = ex.getBindingResult();
-        
-        return new ApiErrors(bindingResult);        
+
+        return new ApiErrors(bindingResult);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(BusinessException.class)
     public ApiErrors handleBusinessExceptions(BusinessException ex) {
-        return new ApiErrors(ex);        
+        return new ApiErrors(ex);
     }
 }

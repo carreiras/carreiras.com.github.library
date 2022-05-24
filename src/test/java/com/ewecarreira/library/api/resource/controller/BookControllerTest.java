@@ -1,5 +1,7 @@
 package com.ewecarreira.library.api.resource.controller;
 
+import java.util.Optional;
+
 import com.ewecarreira.library.api.resource.dto.BookDTO;
 import com.ewecarreira.library.exception.BusinessException;
 import com.ewecarreira.library.model.entity.Book;
@@ -102,6 +104,30 @@ public class BookControllerTest {
                                 .andExpect(MockMvcResultMatchers.status().isBadRequest())
                                 .andExpect(MockMvcResultMatchers.jsonPath("errors", Matchers.hasSize(1)))
                                 .andExpect(MockMvcResultMatchers.jsonPath("errors[0]").value(errorMessage));
+        }
+
+        @Test
+        @DisplayName("Deve obter informações de um livro")
+        public void getBookDetails() throws Exception {
+                Long id = 1L;
+                Book book = Book.builder()
+                                .id(id)
+                                .title("Titulo")
+                                .autor("Autor")
+                                .isbn("123456789")
+                                .build();
+                BDDMockito.given(bookService.getById(id)).willReturn(Optional.of(book));
+
+                MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get(BOOK_API.concat("/" + id))
+                                .accept(MediaType.APPLICATION_JSON);
+
+                mockMvc.perform(request)
+                                .andExpect(MockMvcResultMatchers.status().isOk())
+                                .andExpect(MockMvcResultMatchers.jsonPath("id").isNotEmpty())
+                                .andExpect(MockMvcResultMatchers.jsonPath("id").value(id))
+                                .andExpect(MockMvcResultMatchers.jsonPath("title").value(book.getTitle()))
+                                .andExpect(MockMvcResultMatchers.jsonPath("autor").value(book.getAutor()))
+                                .andExpect(MockMvcResultMatchers.jsonPath("isbn").value(book.getIsbn()));
         }
 
         private BookDTO createNewBook() {

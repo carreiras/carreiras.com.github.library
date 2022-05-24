@@ -1,5 +1,7 @@
 package com.ewecarreira.library.service.impl;
 
+import java.util.Optional;
+
 import com.ewecarreira.library.exception.BusinessException;
 import com.ewecarreira.library.model.entity.Book;
 import com.ewecarreira.library.model.repository.BookRepository;
@@ -22,5 +24,11 @@ public class BookServiceImpl implements BookService {
             throw new BusinessException("Isbn já cadastrado.");
         }
         return bookRepository.save(book);
+    }
+
+    @Override
+    public Optional<Book> getById(Long id) {
+        // TODO Auto-generated method stub
+        return null;
     }
 }
