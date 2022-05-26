@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -49,6 +50,19 @@ public class BookController {
         BookDTO bookDTO = modelMapper.map(bookSaved, BookDTO.class);
 
         return bookDTO;
+    }
+
+    @PutMapping("/{id}")
+    public BookDTO update(@PathVariable Long id, @RequestBody @Valid BookDTO request) {
+        return bookService.getById(id)
+                .map(book -> {
+                    book.setAutor(request.getAutor());
+                    book.setTitle(request.getTitle());
+                    book = bookService.update(book);
+                    return modelMapper.map(book, BookDTO.class);
+                })
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
     }
 
     @DeleteMapping("/{id}")

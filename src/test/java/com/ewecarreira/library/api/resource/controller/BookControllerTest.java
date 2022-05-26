@@ -44,7 +44,6 @@ public class BookControllerTest {
         @DisplayName("Deve criar um livro com sucesso")
         public void createBookTest() throws Exception {
                 BookDTO bookDTO = createNewBook();
-
                 Book savedBook = Book.builder()
                                 .id(1L)
                                 .title("Titulo")
@@ -52,9 +51,7 @@ public class BookControllerTest {
                                 .isbn("123456789")
                                 .build();
 
-                BDDMockito.given(bookService.save(Mockito.any(Book.class)))
-                                .willReturn(savedBook);
-
+                BDDMockito.given(bookService.save(Mockito.any(Book.class))).willReturn(savedBook);
                 String json = new ObjectMapper().writeValueAsString(bookDTO);
 
                 MockHttpServletRequestBuilder request = MockMvcRequestBuilders.post(BOOK_API)
@@ -64,7 +61,6 @@ public class BookControllerTest {
 
                 mockMvc.perform(request)
                                 .andExpect(MockMvcResultMatchers.status().isCreated())
-                                .andExpect(MockMvcResultMatchers.jsonPath("id").isNotEmpty())
                                 .andExpect(MockMvcResultMatchers.jsonPath("id").value(1L))
                                 .andExpect(MockMvcResultMatchers.jsonPath("title").value(bookDTO.getTitle()))
                                 .andExpect(MockMvcResultMatchers.jsonPath("autor").value(bookDTO.getAutor()))
@@ -90,7 +86,6 @@ public class BookControllerTest {
         @DisplayName("Deve lançar um erro ao tentar cadastrar um livro com isbn já tulizado por outro")
         public void createBookWithDuplicatedIsbn() throws Exception {
                 BookDTO bookDTO = createNewBook();
-
                 String json = new ObjectMapper().writeValueAsString(bookDTO);
                 String errorMessage = "Isbn já cadastrado.";
                 BDDMockito.given(bookService.save(Mockito.any(Book.class)))
@@ -125,11 +120,10 @@ public class BookControllerTest {
 
                 mockMvc.perform(request)
                                 .andExpect(MockMvcResultMatchers.status().isOk())
-                                .andExpect(MockMvcResultMatchers.jsonPath("id").isNotEmpty())
                                 .andExpect(MockMvcResultMatchers.jsonPath("id").value(id))
-                                .andExpect(MockMvcResultMatchers.jsonPath("title").value(book.getTitle()))
-                                .andExpect(MockMvcResultMatchers.jsonPath("autor").value(book.getAutor()))
-                                .andExpect(MockMvcResultMatchers.jsonPath("isbn").value(book.getIsbn()));
+                                .andExpect(MockMvcResultMatchers.jsonPath("title").value(createNewBook().getTitle()))
+                                .andExpect(MockMvcResultMatchers.jsonPath("autor").value(createNewBook().getAutor()))
+                                .andExpect(MockMvcResultMatchers.jsonPath("isbn").value(createNewBook().getIsbn()));
         }
 
         @Test
@@ -164,6 +158,57 @@ public class BookControllerTest {
                                 .willReturn(Optional.empty());
 
                 MockHttpServletRequestBuilder request = MockMvcRequestBuilders.delete(BOOK_API.concat("/" + 1L));
+
+                mockMvc.perform(request)
+                                .andExpect(MockMvcResultMatchers.status().isNotFound());
+        }
+
+        @Test
+        @DisplayName("Deve atualizar um livro")
+        public void updateBook() throws Exception {
+                Long id = 1L;
+                String json = new ObjectMapper().writeValueAsString(createNewBook());
+
+                Book updatingBook = Book.builder()
+                                .id(1L)
+                                .title("some title")
+                                .autor("some author")
+                                .isbn("321")
+                                .build();
+                BDDMockito.given(bookService.getById(id))
+                                .willReturn(Optional.of(updatingBook));
+                Book updatedBook = Book.builder()
+                                .id(id)
+                                .title("Titulo")
+                                .autor("Autor")
+                                .isbn("123456789")
+                                .build();
+                BDDMockito.given(bookService.update(updatingBook))
+                                .willReturn(updatedBook);
+
+                MockHttpServletRequestBuilder request = MockMvcRequestBuilders.put(BOOK_API.concat("/" + 1))
+                                .content(json)
+                                .accept(MediaType.APPLICATION_JSON)
+                                .contentType(MediaType.APPLICATION_JSON);
+                mockMvc.perform(request)
+                                .andExpect(MockMvcResultMatchers.status().isOk())
+                                .andExpect(MockMvcResultMatchers.jsonPath("id").value(id))
+                                .andExpect(MockMvcResultMatchers.jsonPath("title").value(createNewBook().getTitle()))
+                                .andExpect(MockMvcResultMatchers.jsonPath("autor").value(createNewBook().getAutor()))
+                                .andExpect(MockMvcResultMatchers.jsonPath("isbn").value(123456789));
+        }
+
+        @Test
+        @DisplayName("Deve retornar 404 ao tentar atualizar um livro inexistente")
+        public void updateBookInexistent() throws Exception {
+                String json = new ObjectMapper().writeValueAsString(createNewBook());
+                BDDMockito.given(bookService.getById(Mockito.anyLong()))
+                                .willReturn(Optional.empty());
+
+                MockHttpServletRequestBuilder request = MockMvcRequestBuilders.put(BOOK_API.concat("/" + 1L))
+                                .content(json)
+                                .accept(MediaType.APPLICATION_JSON)
+                                .contentType(MediaType.APPLICATION_JSON);
 
                 mockMvc.perform(request)
                                 .andExpect(MockMvcResultMatchers.status().isNotFound());

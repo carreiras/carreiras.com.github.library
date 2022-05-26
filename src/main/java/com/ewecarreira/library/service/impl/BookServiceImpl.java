@@ -19,6 +19,12 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    public Optional<Book> getById(Long id) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
     public Book save(Book book) {
         if (bookRepository.existsByIsbn(book.getIsbn())) {
             throw new BusinessException("Isbn já cadastrado.");
@@ -27,7 +33,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Optional<Book> getById(Long id) {
+    public Book update(Book book) {
         // TODO Auto-generated method stub
         return null;
     }
