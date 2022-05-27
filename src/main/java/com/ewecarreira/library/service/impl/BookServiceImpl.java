@@ -28,6 +28,7 @@ public class BookServiceImpl implements BookService {
         if (bookRepository.existsByIsbn(book.getIsbn())) {
             throw new BusinessException("Isbn já cadastrado.");
         }
+
         return bookRepository.save(book);
     }
 
@@ -40,6 +41,5 @@ public class BookServiceImpl implements BookService {
     @Override
     public void delete(Book book) {
         // TODO Auto-generated method stub
-
     }
 }

@@ -62,7 +62,6 @@ public class BookController {
                     return modelMapper.map(book, BookDTO.class);
                 })
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-
     }
 
     @DeleteMapping("/{id}")
