@@ -1,5 +1,7 @@
 package com.ewecarreira.library.service;
 
+import java.util.Optional;
+
 import com.ewecarreira.library.exception.BusinessException;
 import com.ewecarreira.library.model.entity.Book;
 import com.ewecarreira.library.model.repository.BookRepository;
@@ -59,6 +61,34 @@ public class BookServiceTest {
 
         Assertions.assertThat(exception).isInstanceOf(BusinessException.class).hasMessage("Isbn já cadastrado.");
         Mockito.verify(bookRepository, Mockito.never()).save(book);
+    }
+
+    @Test
+    @DisplayName("Deve obter um livro por id")
+    public void getById() {
+        Long id = 1L;
+        Book book = createValidBook();
+        book.setId(id);
+        Mockito.when(bookRepository.findById(id)).thenReturn(Optional.of(book));
+
+        Optional<Book> foundBook = bookService.getById(id);
+
+        Assertions.assertThat(foundBook.isPresent()).isTrue();
+        Assertions.assertThat(foundBook.get().getId()).isEqualTo(id);
+        Assertions.assertThat(foundBook.get().getAutor()).isEqualTo(book.getAutor());
+        Assertions.assertThat(foundBook.get().getTitle()).isEqualTo(book.getTitle());
+        Assertions.assertThat(foundBook.get().getIsbn()).isEqualTo(book.getIsbn());
+    }
+
+    @Test
+    @DisplayName("Deve retornar vazio ao obter um livro por id quando ele não existe na base")
+    public void bookNotFoundById() {
+        Long id = 1L;
+        Mockito.when(bookRepository.findById(id)).thenReturn(Optional.empty());
+
+        Optional<Book> book = bookService.getById(id);
+
+        Assertions.assertThat(book.isPresent()).isFalse();
     }
 
     private Book createValidBook() {
