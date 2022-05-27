@@ -1,5 +1,7 @@
 package com.ewecarreira.library.model.repository;
 
+import java.util.Optional;
+
 import com.ewecarreira.library.model.entity.Book;
 
 import org.assertj.core.api.Assertions;
@@ -27,11 +29,7 @@ public class BookRepositoryTest {
     @DisplayName("Deve retornar verdadeiro quando existir um livro na base com o isbn informado")
     public void returnTrueWhenIsbnExists() {
         String isbn = "123456789";
-        Book book = Book.builder()
-                .title("Titulo")
-                .autor("Autor")
-                .isbn("123456789")
-                .build();
+        Book book = createNewBook();
         testEntityManager.persist(book);
 
         boolean exists = bookRepository.existsByIsbn(isbn);
@@ -45,7 +43,26 @@ public class BookRepositoryTest {
         String isbn = "123456789";
 
         boolean exists = bookRepository.existsByIsbn(isbn);
-
+        
         Assertions.assertThat(exists).isFalse();
+    }
+    
+    @Test
+    @DisplayName("Deve obter um livro por id")
+    public void findById() {
+        Book book = createNewBook();
+        testEntityManager.persist(book);
+
+        Optional<Book> foundBook = bookRepository.findById(book.getId());
+
+        Assertions.assertThat(foundBook.isPresent()).isTrue() ;
+    }
+
+    private Book createNewBook() {
+        return Book.builder()
+                .title("Titulo")
+                .autor("Autor")
+                .isbn("123456789")
+                .build();
     }
 }
