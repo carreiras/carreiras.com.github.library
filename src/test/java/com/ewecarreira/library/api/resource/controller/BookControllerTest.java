@@ -84,7 +84,7 @@ public class BookControllerTest {
 
         @Test
         @DisplayName("Deve lançar um erro ao tentar cadastrar um livro com isbn já tulizado por outro")
-        public void createBookWithDuplicatedIsbn() throws Exception {
+        public void createBookWithDuplicatedIsbnTest() throws Exception {
                 BookDTO bookDTO = createNewBook();
                 String json = new ObjectMapper().writeValueAsString(bookDTO);
                 String errorMessage = "Isbn já cadastrado.";
@@ -104,7 +104,7 @@ public class BookControllerTest {
 
         @Test
         @DisplayName("Deve obter informações de um livro")
-        public void getBookDetails() throws Exception {
+        public void getBookDetailsTest() throws Exception {
                 Long id = 1L;
                 Book book = Book.builder()
                                 .id(id)
@@ -128,7 +128,7 @@ public class BookControllerTest {
 
         @Test
         @DisplayName("Deve retornar Recource Not Found quando o livro procurado não existir")
-        public void bookNotFound() throws Exception {
+        public void bookNotFoundTest() throws Exception {
                 BDDMockito.given(bookService.getById(Mockito.anyLong()))
                                 .willReturn(Optional.empty());
 
@@ -141,7 +141,7 @@ public class BookControllerTest {
 
         @Test
         @DisplayName("Deve deletar um livro")
-        public void deleteBook() throws Exception {
+        public void deleteBookTest() throws Exception {
                 BDDMockito.given(bookService.getById(Mockito.anyLong()))
                                 .willReturn(Optional.of(Book.builder().id(1L).build()));
 
@@ -153,7 +153,7 @@ public class BookControllerTest {
 
         @Test
         @DisplayName("Deve retornar Resource Not Found quando não encontrar um livro para deletar")
-        public void deleteInexistentBook() throws Exception {
+        public void deleteInexistentBookTest() throws Exception {
                 BDDMockito.given(bookService.getById(Mockito.anyLong()))
                                 .willReturn(Optional.empty());
 
@@ -165,7 +165,7 @@ public class BookControllerTest {
 
         @Test
         @DisplayName("Deve atualizar um livro")
-        public void updateBook() throws Exception {
+        public void updateBookTest() throws Exception {
                 Long id = 1L;
                 String json = new ObjectMapper().writeValueAsString(createNewBook());
 
@@ -200,7 +200,7 @@ public class BookControllerTest {
 
         @Test
         @DisplayName("Deve retornar 404 ao tentar atualizar um livro inexistente")
-        public void updateBookInexistent() throws Exception {
+        public void updateBookInexistentTest() throws Exception {
                 String json = new ObjectMapper().writeValueAsString(createNewBook());
                 BDDMockito.given(bookService.getById(Mockito.anyLong()))
                                 .willReturn(Optional.empty());

@@ -49,7 +49,7 @@ public class BookRepositoryTest {
 
     @Test
     @DisplayName("Deve obter um livro por id")
-    public void findById() {
+    public void findByIdTest() {
         Book book = createNewBook();
         testEntityManager.persist(book);
 
@@ -60,7 +60,7 @@ public class BookRepositoryTest {
 
     @Test
     @DisplayName("Deve salvar um livro")
-    public void saveBook() {
+    public void saveBookTest() {
         Book book = createNewBook();
 
         Book savedBook = bookRepository.save(book);
@@ -70,7 +70,7 @@ public class BookRepositoryTest {
 
     @Test
     @DisplayName("Deve deletar um livro")
-    public void deleteBook() {
+    public void deleteBookTest() {
         Book book = createNewBook();
         testEntityManager.persist(book);
         Book foundBook = testEntityManager.find(Book.class, book.getId());

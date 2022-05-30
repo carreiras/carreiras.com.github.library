@@ -8,7 +8,6 @@ import com.ewecarreira.library.model.repository.BookRepository;
 import com.ewecarreira.library.service.impl.BookServiceImpl;
 
 import org.assertj.core.api.Assertions;
-import org.hibernate.boot.model.naming.IllegalIdentifierException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -54,7 +53,7 @@ public class BookServiceTest {
 
     @Test
     @DisplayName("Deve lançar erro de negócio ao tentar salvar um livro com ISBN duplicado")
-    public void shouldNotSaveABookWithDuplicatedIsbn() {
+    public void shouldNotSaveABookWithDuplicatedIsbnTest() {
         Book book = createValidBook();
         Mockito.when(bookRepository.existsByIsbn(Mockito.anyString())).thenReturn(true);
 
@@ -66,7 +65,7 @@ public class BookServiceTest {
 
     @Test
     @DisplayName("Deve obter um livro por id")
-    public void getById() {
+    public void getByIdTest() {
         Long id = 1L;
         Book book = createValidBook();
         book.setId(id);
@@ -83,7 +82,7 @@ public class BookServiceTest {
 
     @Test
     @DisplayName("Deve retornar vazio ao obter um livro por id quando ele não existe na base")
-    public void bookNotFoundById() {
+    public void bookNotFoundByIdTest() {
         Long id = 1L;
         Mockito.when(bookRepository.findById(id)).thenReturn(Optional.empty());
 
@@ -94,7 +93,7 @@ public class BookServiceTest {
 
     @Test
     @DisplayName("Deve deletar um livro")
-    public void deleteBook() {
+    public void deleteBookTest() {
         Book book = Book.builder()
                 .id(1L)
                 .build();
@@ -106,7 +105,7 @@ public class BookServiceTest {
 
     @Test
     @DisplayName("Deve ocorrer um erro ao tentar deletar um livro inexistente")
-    public void deleteInvalidBook() {
+    public void deleteInvalidBookTest() {
         Book book = new Book();
 
         org.junit.jupiter.api.Assertions.assertThrows(IllegalArgumentException.class, () -> bookService.delete(book));
@@ -116,7 +115,7 @@ public class BookServiceTest {
 
     @Test
     @DisplayName("Deve atualizar um livro")
-    public void updateBook() {
+    public void updateBookTest() {
         long id = 1L;
         Book updatingBook = Book.builder()
                 .id(id)
@@ -136,7 +135,7 @@ public class BookServiceTest {
 
     @Test
     @DisplayName("Deve ocorrer um erro ao atualizar um livro inexistente")
-    public void updateInvalidBook() {
+    public void updateInvalidBookTest() {
         Book book = new Book();
 
         org.junit.jupiter.api.Assertions.assertThrows(IllegalArgumentException.class, () -> bookService.update(book));
