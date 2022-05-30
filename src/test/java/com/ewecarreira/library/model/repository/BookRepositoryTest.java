@@ -43,10 +43,10 @@ public class BookRepositoryTest {
         String isbn = "123456789";
 
         boolean exists = bookRepository.existsByIsbn(isbn);
-        
+
         Assertions.assertThat(exists).isFalse();
     }
-    
+
     @Test
     @DisplayName("Deve obter um livro por id")
     public void findById() {
@@ -55,7 +55,7 @@ public class BookRepositoryTest {
 
         Optional<Book> foundBook = bookRepository.findById(book.getId());
 
-        Assertions.assertThat(foundBook.isPresent()).isTrue() ;
+        Assertions.assertThat(foundBook.isPresent()).isTrue();
     }
 
     private Book createNewBook() {
