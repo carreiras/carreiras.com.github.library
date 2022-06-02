@@ -7,6 +7,8 @@ import com.ewecarreira.library.model.entity.Book;
 import com.ewecarreira.library.model.repository.BookRepository;
 import com.ewecarreira.library.service.BookService;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -46,5 +48,11 @@ public class BookServiceImpl implements BookService {
             throw new IllegalArgumentException("Book id cant be null.");
 
         this.bookRepository.delete(book);
+    }
+
+    @Override
+    public Page<Book> find(Book filter, Pageable pageRequest) {
+        // TODO Auto-generated method stub
+        return null;
     }
 }
