@@ -29,7 +29,6 @@ import com.ewecarreira.library.exception.BusinessException;
 import com.ewecarreira.library.model.entity.Book;
 import com.ewecarreira.library.service.BookService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jayway.jsonpath.JsonPath;
 
 @WebMvcTest
 @AutoConfigureMockMvc
