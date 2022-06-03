@@ -1,5 +1,7 @@
 package com.ewecarreira.library.services;
 
+import static org.mockito.Mockito.times;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -150,7 +152,7 @@ public class BookServiceTest {
     }
 
     @Test
-    @SuppressWarnings("unchecked")    
+    @SuppressWarnings("unchecked")
     @DisplayName("Deve filtrar livros pelas propriedades")
     public void findBookTest() {
         Book book = createValidBook();
@@ -166,6 +168,21 @@ public class BookServiceTest {
         Assertions.assertThat(result.getContent()).isEqualTo(lista);
         Assertions.assertThat(result.getPageable().getPageNumber()).isEqualTo(0);
         Assertions.assertThat(result.getPageable().getPageSize()).isEqualTo(10);
+    }
+
+    @Test
+    @DisplayName("Deve obter um livro pelo isbn")
+    public void getBookByIsbnTest() {
+        String isbn = "123456789";
+        Mockito.when(bookRepository.findByIsbn(isbn))
+                .thenReturn(Optional.of(Book.builder().id(1L).isbn(isbn).build()));
+
+        Optional<Book> book = bookService.getBookByIsbn(isbn);
+
+        Assertions.assertThat(book.isPresent()).isTrue();
+        Assertions.assertThat(book.get().getId()).isEqualTo(1L);
+        Assertions.assertThat(book.get().getIsbn()).isEqualTo(isbn);
+        Mockito.verify(bookRepository, times(1)).findByIsbn(isbn);
     }
 
     private Book createValidBook() {
