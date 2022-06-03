@@ -27,10 +27,10 @@ import com.ewecarreira.library.services.BookService;
 import com.ewecarreira.library.services.LoanService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-@WebMvcTest(controllers = LoanController.class)
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
 @ExtendWith(SpringExtension.class)
+@WebMvcTest(controllers = LoanController.class)
 public class LoanControllerTest {
 
     static String LOAN_API = "/api/loans";
@@ -61,6 +61,6 @@ public class LoanControllerTest {
 
         mockMvc.perform(request)
                 .andExpect(MockMvcResultMatchers.status().isCreated())
-                .andExpect(MockMvcResultMatchers.jsonPath("id").value(1L));
+                .andExpect(MockMvcResultMatchers.content().string("1"));
     }
 }

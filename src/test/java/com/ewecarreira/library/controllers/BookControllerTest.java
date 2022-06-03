@@ -33,7 +33,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
 @ExtendWith(SpringExtension.class)
-@WebMvcTest(controllers = BookController.class)
+@WebMvcTest (controllers = BookController.class)
 public class BookControllerTest {
 
     static String BOOK_API = "/api/books";
