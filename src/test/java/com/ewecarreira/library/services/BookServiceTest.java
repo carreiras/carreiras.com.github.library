@@ -4,12 +4,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import com.ewecarreira.library.entities.Book;
-import com.ewecarreira.library.exceptions.BusinessException;
-import com.ewecarreira.library.repositories.BookRepository;
-import com.ewecarreira.library.services.BookService;
-import com.ewecarreira.library.services.impl.BookServiceImpl;
-
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -23,6 +17,11 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import com.ewecarreira.library.entities.Book;
+import com.ewecarreira.library.exceptions.BusinessException;
+import com.ewecarreira.library.repositories.BookRepository;
+import com.ewecarreira.library.services.impl.BookServiceImpl;
 
 @ActiveProfiles("test")
 @ExtendWith(SpringExtension.class)

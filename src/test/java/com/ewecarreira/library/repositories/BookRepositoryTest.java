@@ -13,7 +13,6 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.ewecarreira.library.entities.Book;
-import com.ewecarreira.library.repositories.BookRepository;
 
 @DataJpaTest
 @ActiveProfiles("test")
