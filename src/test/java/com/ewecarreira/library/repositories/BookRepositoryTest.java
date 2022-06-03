@@ -1,8 +1,6 @@
-package com.ewecarreira.library.model.repository;
+package com.ewecarreira.library.repositories;
 
 import java.util.Optional;
-
-import com.ewecarreira.library.model.entity.Book;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -13,6 +11,9 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import com.ewecarreira.library.entities.Book;
+import com.ewecarreira.library.repositories.BookRepository;
 
 @DataJpaTest
 @ActiveProfiles("test")

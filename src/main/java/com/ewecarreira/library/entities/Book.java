@@ -1,4 +1,4 @@
-package com.ewecarreira.library.model.entity;
+package com.ewecarreira.library.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

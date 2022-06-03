@@ -1,11 +1,11 @@
-package com.ewecarreira.library.service;
+package com.ewecarreira.library.services;
 
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import com.ewecarreira.library.model.entity.Book;
+import com.ewecarreira.library.entities.Book;
 
 public interface BookService {
 

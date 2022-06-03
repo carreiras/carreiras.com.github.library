@@ -1,4 +1,4 @@
-package com.ewecarreira.library.api.resource.dto;
+package com.ewecarreira.library.dtos;
 
 import javax.validation.constraints.NotEmpty;
 

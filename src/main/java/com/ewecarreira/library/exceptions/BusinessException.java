@@ -1,4 +1,4 @@
-package com.ewecarreira.library.exception;
+package com.ewecarreira.library.exceptions;
 
 public class BusinessException extends RuntimeException {
 

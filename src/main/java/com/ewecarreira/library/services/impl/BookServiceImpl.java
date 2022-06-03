@@ -1,4 +1,4 @@
-package com.ewecarreira.library.service.impl;
+package com.ewecarreira.library.services.impl;
 
 import java.util.Optional;
 
@@ -8,10 +8,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.ewecarreira.library.exception.BusinessException;
-import com.ewecarreira.library.model.entity.Book;
-import com.ewecarreira.library.model.repository.BookRepository;
-import com.ewecarreira.library.service.BookService;
+import com.ewecarreira.library.entities.Book;
+import com.ewecarreira.library.exceptions.BusinessException;
+import com.ewecarreira.library.repositories.BookRepository;
+import com.ewecarreira.library.services.BookService;
 
 @Service
 public class BookServiceImpl implements BookService {

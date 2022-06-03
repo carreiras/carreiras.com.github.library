@@ -1,8 +1,8 @@
-package com.ewecarreira.library.model.repository;
-
-import com.ewecarreira.library.model.entity.Book;
+package com.ewecarreira.library.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.ewecarreira.library.entities.Book;
 
 public interface BookRepository extends JpaRepository<Book, Long> {
 

@@ -1,4 +1,4 @@
-package com.ewecarreira.library.api.resource.controller;
+package com.ewecarreira.library.controllers;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,11 +25,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.ewecarreira.library.api.resource.dto.BookDTO;
-import com.ewecarreira.library.exception.ApiErrors;
-import com.ewecarreira.library.exception.BusinessException;
-import com.ewecarreira.library.model.entity.Book;
-import com.ewecarreira.library.service.BookService;
+import com.ewecarreira.library.dtos.BookDTO;
+import com.ewecarreira.library.entities.Book;
+import com.ewecarreira.library.exceptions.ApiErrors;
+import com.ewecarreira.library.exceptions.BusinessException;
+import com.ewecarreira.library.services.BookService;
 
 @RestController
 @RequestMapping("/api/books")

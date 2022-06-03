@@ -1,4 +1,4 @@
-package com.ewecarreira.library.exception;
+package com.ewecarreira.library.exceptions;
 
 import java.util.ArrayList;
 import java.util.Arrays;

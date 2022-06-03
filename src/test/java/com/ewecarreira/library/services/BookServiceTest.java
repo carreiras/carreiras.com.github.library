@@ -1,13 +1,14 @@
-package com.ewecarreira.library.service;
+package com.ewecarreira.library.services;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import com.ewecarreira.library.exception.BusinessException;
-import com.ewecarreira.library.model.entity.Book;
-import com.ewecarreira.library.model.repository.BookRepository;
-import com.ewecarreira.library.service.impl.BookServiceImpl;
+import com.ewecarreira.library.entities.Book;
+import com.ewecarreira.library.exceptions.BusinessException;
+import com.ewecarreira.library.repositories.BookRepository;
+import com.ewecarreira.library.services.BookService;
+import com.ewecarreira.library.services.impl.BookServiceImpl;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

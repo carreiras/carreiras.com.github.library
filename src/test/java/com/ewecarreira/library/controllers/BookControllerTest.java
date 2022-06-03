@@ -1,4 +1,4 @@
-package com.ewecarreira.library.api.resource.controller;
+package com.ewecarreira.library.controllers;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -24,10 +24,10 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import com.ewecarreira.library.api.resource.dto.BookDTO;
-import com.ewecarreira.library.exception.BusinessException;
-import com.ewecarreira.library.model.entity.Book;
-import com.ewecarreira.library.service.BookService;
+import com.ewecarreira.library.dtos.BookDTO;
+import com.ewecarreira.library.entities.Book;
+import com.ewecarreira.library.exceptions.BusinessException;
+import com.ewecarreira.library.services.BookService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @WebMvcTest
