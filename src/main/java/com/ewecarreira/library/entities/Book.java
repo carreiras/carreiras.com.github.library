@@ -30,8 +30,7 @@ public class Book {
 
     @Column
     private String autor;
-    
+
     @Column
     private String isbn;
 }
-    
