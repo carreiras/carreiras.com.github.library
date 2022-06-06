@@ -1,17 +1,14 @@
 package com.ewecarreira.library.services;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.catchThrowable;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
 import java.time.LocalDate;
+import java.util.Optional;
 
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mockito;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -55,15 +52,15 @@ public class LoanServiceTest {
                 .loanDate(LocalDate.now())
                 .build();
 
-        when(loanRepository.existsByBookAndNotReturned(book)).thenReturn(false);
-        when(loanRepository.save(salvingLoan)).thenReturn(savedLoan);
+        Mockito.when(loanRepository.existsByBookAndNotReturned(book)).thenReturn(false);
+        Mockito.when(loanRepository.save(salvingLoan)).thenReturn(savedLoan);
 
         Loan loan = loanService.save(salvingLoan);
 
-        assertThat(loan.getId()).isEqualTo(savedLoan.getId());
-        assertThat(loan.getBook().getId()).isEqualTo(savedLoan.getBook().getId());
-        assertThat(loan.getCustomer()).isEqualTo(savedLoan.getCustomer());
-        assertThat(loan.getLoanDate()).isEqualTo(savedLoan.getLoanDate());
+        Assertions.assertThat(loan.getId()).isEqualTo(savedLoan.getId());
+        Assertions.assertThat(loan.getBook().getId()).isEqualTo(savedLoan.getBook().getId());
+        Assertions.assertThat(loan.getCustomer()).isEqualTo(savedLoan.getCustomer());
+        Assertions.assertThat(loan.getLoanDate()).isEqualTo(savedLoan.getLoanDate());
     }
 
     @Test
@@ -78,15 +75,44 @@ public class LoanServiceTest {
                 .loanDate(LocalDate.now())
                 .build();
 
-        when(loanRepository.existsByBookAndNotReturned(book)).thenReturn(true);
+        Mockito.when(loanRepository.existsByBookAndNotReturned(book)).thenReturn(true);
 
-        Throwable exception = catchThrowable(() -> loanService.save(savingLoan));
+        Throwable exception = Assertions.catchThrowable(() -> loanService.save(savingLoan));
 
-        assertThat(exception)
+        Assertions.assertThat(exception)
                 .isInstanceOf(BusinessException.class)
                 .hasMessage("Book already loaned");
 
-        verify(loanRepository, never()).save(savingLoan);
+        Mockito.verify(loanRepository, Mockito.never()).save(savingLoan);
+    }
 
+    @Test
+    @DisplayName("Deve obter as informações de um empréstimo pelo Id")
+    public void getLoanDetailsTest() {
+        Long id = 1L;
+        Loan loan = createLoan();
+        loan.setId(id);
+        Mockito.when(loanRepository.findById(id)).thenReturn(Optional.of(loan));
+
+        Optional<Loan> result = loanService.getById(id);
+
+        Assertions.assertThat(result.isPresent()).isTrue();
+        Assertions.assertThat(result.get().getId()).isEqualTo(id);
+        Assertions.assertThat(result.get().getCustomer()).isEqualTo(loan.getCustomer());
+        Assertions.assertThat(result.get().getBook()).isEqualTo(loan.getBook());
+        Assertions.assertThat(result.get().getLoanDate()).isEqualTo(loan.getLoanDate());
+
+        Mockito.verify(loanRepository).findById(id);
+    }
+
+    public Loan createLoan() {
+        Book book = Book.builder().id(1L).build();
+        String customer = "Fulano";
+
+        return Loan.builder()
+                .book(book)
+                .customer(customer)
+                .loanDate(LocalDate.now())
+                .build();
     }
 }
