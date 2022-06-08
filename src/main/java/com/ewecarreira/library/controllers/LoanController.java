@@ -1,10 +1,12 @@
 package com.ewecarreira.library.controllers;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 
-
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.ewecarreira.library.dtos.BookDTO;
 import com.ewecarreira.library.dtos.LoanDTO;
 import com.ewecarreira.library.dtos.LoanFilterDTO;
 import com.ewecarreira.library.dtos.ReturnedLoanDTO;
@@ -34,6 +37,7 @@ public class LoanController {
 
     private final BookService bookService;
     private final LoanService loanService;
+    private final ModelMapper modelMapper;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -59,7 +63,19 @@ public class LoanController {
     @GetMapping
     public Page<LoanDTO> find(LoanFilterDTO filter, Pageable pageRequest) {
         Page<Loan> result = loanService.find(filter, pageRequest);
-        return null;
+        List<LoanDTO> list = result.getContent()
+                .stream()
+                .map(entity -> {
+                    Book book = entity.getBook();
+                    BookDTO bookDTO = modelMapper.map(book, BookDTO.class);
+                    LoanDTO loanDTO = modelMapper.map(entity, LoanDTO.class);
+                    loanDTO.setBook(bookDTO);
+
+                    return loanDTO;
+                })
+                .collect(Collectors.toList());
+
+        return new PageImpl<LoanDTO>(list, pageRequest, result.getTotalElements());
     }
 
 }
