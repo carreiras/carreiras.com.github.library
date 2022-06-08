@@ -2,6 +2,10 @@ package com.ewecarreira.library.services.impl;
 
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
+import com.ewecarreira.library.dtos.LoanFilterDTO;
 import com.ewecarreira.library.entities.Loan;
 import com.ewecarreira.library.exceptions.BusinessException;
 import com.ewecarreira.library.repositories.LoanRepository;
@@ -31,5 +35,11 @@ public class LoanServiceImpl implements LoanService {
     @Override
     public Loan update(Loan loan) {
         return loanRepository.save(loan);
+    }
+
+    @Override
+    public Page<Loan> find(LoanFilterDTO loanFilterDTO, Pageable pageable) {
+        // TODO Auto-generated method stub
+        return null;
     }
 }

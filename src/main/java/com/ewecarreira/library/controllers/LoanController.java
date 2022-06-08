@@ -2,7 +2,12 @@ package com.ewecarreira.library.controllers;
 
 import java.time.LocalDate;
 
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.ewecarreira.library.dtos.LoanDTO;
+import com.ewecarreira.library.dtos.LoanFilterDTO;
 import com.ewecarreira.library.dtos.ReturnedLoanDTO;
 import com.ewecarreira.library.entities.Book;
 import com.ewecarreira.library.entities.Loan;
@@ -48,6 +54,12 @@ public class LoanController {
         Loan loan = loanService.getById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         loan.setReturned(returnedLoanDTO.getReturned());
         loanService.update(loan);
+    }
+
+    @GetMapping
+    public Page<LoanDTO> find(LoanFilterDTO filter, Pageable pageRequest) {
+        Page<Loan> result = loanService.find(filter, pageRequest);
+        return null;
     }
 
 }
