@@ -114,19 +114,22 @@ public class LoanServiceTest {
     @Test
     @DisplayName("Deve atualizar um empréstimo")
     public void updateLoanTest() {
+        // Cenário
         Loan loan = createLoan();
         loan.setId(1L);
         loan.setReturned(true);
 
         Mockito.when(loanRepository.save(loan)).thenReturn(loan);
+
+        // Execução
         Loan updatedLoan = loanService.update(loan);
 
+        // Validação
         Assertions.assertThat(updatedLoan.getReturned()).isTrue();
         Mockito.verify(loanRepository).save(loan);
     }
 
     @Test
-    @SuppressWarnings("unchecked")
     @DisplayName("Deve filtrar empréstimos pelas propriedades")
     public void findLoanTest() {
         // Cenário
