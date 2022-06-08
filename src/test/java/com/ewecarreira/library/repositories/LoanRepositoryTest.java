@@ -25,10 +25,10 @@ import com.ewecarreira.library.entities.Loan;
 public class LoanRepositoryTest {
 
     @Autowired
-    LoanRepository loanRepository;
+    private LoanRepository loanRepository;
 
     @Autowired
-    TestEntityManager testEntityManager;
+    private TestEntityManager testEntityManager;
 
     @Test
     @DisplayName("Deve verificar se existe um emprestimo não retornado para o livro passado.")
@@ -40,7 +40,7 @@ public class LoanRepositoryTest {
         // Execução
         boolean exists = loanRepository.existsByBookAndNotReturned(book);
 
-        // Validação
+        // Validações
         assertThat(exists).isTrue();
     }
 
@@ -56,7 +56,7 @@ public class LoanRepositoryTest {
                 "Fulano",
                 PageRequest.of(0, 10));
 
-        // Validação
+        // Validações
         Assertions.assertThat(result.getContent()).hasSize(1);
         Assertions.assertThat(result.getContent()).contains(loan);
         Assertions.assertThat(result.getPageable().getPageSize()).isEqualTo(10);

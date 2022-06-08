@@ -20,10 +20,10 @@ import com.ewecarreira.library.entities.Book;
 public class BookRepositoryTest {
 
     @Autowired
-    TestEntityManager testEntityManager;
+    private TestEntityManager testEntityManager;
 
     @Autowired
-    BookRepository bookRepository;
+    private BookRepository bookRepository;
 
     @Test
     @DisplayName("Deve retornar verdadeiro quando existir um livro na base com o isbn informado")
@@ -35,7 +35,7 @@ public class BookRepositoryTest {
         // Execução
         boolean exists = bookRepository.existsByIsbn("123456789");
 
-        // Validação
+        // Validações
         Assertions.assertThat(exists).isTrue();
     }
 
@@ -45,7 +45,7 @@ public class BookRepositoryTest {
         // Execução
         boolean exists = bookRepository.existsByIsbn("123456789");
 
-        // Validação
+        // Validações
         Assertions.assertThat(exists).isFalse();
     }
 
@@ -59,7 +59,7 @@ public class BookRepositoryTest {
         // Execução
         Optional<Book> foundBook = bookRepository.findById(book.getId());
 
-        // Validação
+        // Validações
         Assertions.assertThat(foundBook.isPresent()).isTrue();
     }
 
@@ -72,7 +72,7 @@ public class BookRepositoryTest {
         // Execução
         Book savedBook = bookRepository.save(book);
 
-        // Validação
+        // Validações
         Assertions.assertThat(savedBook.getId()).isNotNull();
     }
 
@@ -89,7 +89,7 @@ public class BookRepositoryTest {
         bookRepository.delete(foundBook);
         Book deletedBook = testEntityManager.find(Book.class, book.getId());
 
-        // Validação
+        // Validações
         Assertions.assertThat(deletedBook).isNull();
     }
 

@@ -29,9 +29,8 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book save(Book book) {
-        if (bookRepository.existsByIsbn(book.getIsbn())) {
+        if (bookRepository.existsByIsbn(book.getIsbn()))
             throw new BusinessException("Isbn já cadastrado.");
-        }
 
         return bookRepository.save(book);
     }
@@ -54,9 +53,9 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Page<Book> find(Book filter, Pageable pageRequest) {
-        Example<Book> example = Example.of(filter,
-                ExampleMatcher
-                        .matching()
+        Example<Book> example = Example.of(
+                filter,
+                ExampleMatcher.matching()
                         .withIgnoreCase()
                         .withIgnoreNullValues()
                         .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING));

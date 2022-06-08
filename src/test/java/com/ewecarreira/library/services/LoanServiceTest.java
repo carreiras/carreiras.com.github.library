@@ -42,7 +42,11 @@ public class LoanServiceTest {
     @Test
     @DisplayName("Deve salvar um empréstimo")
     public void saveLoanTest() {
-        Book book = Book.builder().id(1L).build();
+        // Cenário
+        Book book = Book.builder()
+                .id(1L)
+                .build();
+
         String customer = "Fulano";
 
         Loan salvingLoan = Loan.builder()
@@ -61,8 +65,10 @@ public class LoanServiceTest {
         Mockito.when(loanRepository.existsByBookAndNotReturned(book)).thenReturn(false);
         Mockito.when(loanRepository.save(salvingLoan)).thenReturn(savedLoan);
 
+        // Execução
         Loan loan = loanService.save(salvingLoan);
 
+        // Validações
         Assertions.assertThat(loan.getId()).isEqualTo(savedLoan.getId());
         Assertions.assertThat(loan.getBook().getId()).isEqualTo(savedLoan.getBook().getId());
         Assertions.assertThat(loan.getCustomer()).isEqualTo(savedLoan.getCustomer());
@@ -72,19 +78,23 @@ public class LoanServiceTest {
     @Test
     @DisplayName("Deve lançar erro de negócio ao salvar um empréstimo com livro já emprestado")
     public void loanedBookSaveTest() {
-        Book book = Book.builder().id(1l).build();
-        String customer = "Fulano";
+        // Cenário
+        Book book = Book.builder()
+                .id(1l)
+                .build();
 
         Loan savingLoan = Loan.builder()
                 .book(book)
-                .customer(customer)
+                .customer("Fulano")
                 .loanDate(LocalDate.now())
                 .build();
 
         Mockito.when(loanRepository.existsByBookAndNotReturned(book)).thenReturn(true);
 
+        // Execução
         Throwable exception = Assertions.catchThrowable(() -> loanService.save(savingLoan));
 
+        // Validações
         Assertions.assertThat(exception)
                 .isInstanceOf(BusinessException.class)
                 .hasMessage("Book already loaned");
@@ -95,13 +105,18 @@ public class LoanServiceTest {
     @Test
     @DisplayName("Deve obter as informações de um empréstimo pelo Id")
     public void getLoanDetailsTest() {
+        //  Cenário
         Long id = 1L;
+
         Loan loan = createLoan();
         loan.setId(id);
+        
         Mockito.when(loanRepository.findById(id)).thenReturn(Optional.of(loan));
 
+        // Execução
         Optional<Loan> result = loanService.getById(id);
 
+        //  Validações
         Assertions.assertThat(result.isPresent()).isTrue();
         Assertions.assertThat(result.get().getId()).isEqualTo(id);
         Assertions.assertThat(result.get().getCustomer()).isEqualTo(loan.getCustomer());
@@ -124,7 +139,7 @@ public class LoanServiceTest {
         // Execução
         Loan updatedLoan = loanService.update(loan);
 
-        // Validação
+        // Validações
         Assertions.assertThat(updatedLoan.getReturned()).isTrue();
         Mockito.verify(loanRepository).save(loan);
     }
@@ -152,7 +167,7 @@ public class LoanServiceTest {
         // Execução
         Page<Loan> result = loanService.find(loanFilterDTO, pageRequest);
 
-        // Validação
+        // Validações
         Assertions.assertThat(result.getTotalElements()).isEqualTo(1);
         Assertions.assertThat(result.getContent()).isEqualTo(lista);
         Assertions.assertThat(result.getPageable().getPageNumber()).isEqualTo(0);

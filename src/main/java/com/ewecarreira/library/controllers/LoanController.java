@@ -1,5 +1,8 @@
 package com.ewecarreira.library.controllers;
 
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
+import static org.springframework.http.HttpStatus.NOT_FOUND;
+
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -43,19 +46,20 @@ public class LoanController {
     @ResponseStatus(HttpStatus.CREATED)
     public Long create(@RequestBody LoanDTO loanDTO) {
         Book book = bookService.getBookByIsbn(loanDTO.getIsbn())
-                .orElseThrow(
-                        () -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Book not found for passed isbn"));
-        Loan entity = Loan.builder().book(book).customer(loanDTO.getCustomer()).loanDate(LocalDate.now()).build();
+                .orElseThrow(() -> new ResponseStatusException(BAD_REQUEST, "Book not found for passed isbn"));
+        Loan entity = Loan.builder()
+                .book(book)
+                .customer(loanDTO.getCustomer())
+                .loanDate(LocalDate.now())
+                .build();
         entity = loanService.save(entity);
 
         return entity.getId();
     }
 
     @PatchMapping("/{id}")
-    public void returnBook(
-            @PathVariable Long id,
-            @RequestBody ReturnedLoanDTO returnedLoanDTO) {
-        Loan loan = loanService.getById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    public void returnBook(@PathVariable Long id, @RequestBody ReturnedLoanDTO returnedLoanDTO) {
+        Loan loan = loanService.getById(id).orElseThrow(() -> new ResponseStatusException(NOT_FOUND));
         loan.setReturned(returnedLoanDTO.getReturned());
         loanService.update(loan);
     }
@@ -77,5 +81,4 @@ public class LoanController {
 
         return new PageImpl<LoanDTO>(list, pageRequest, result.getTotalElements());
     }
-
 }

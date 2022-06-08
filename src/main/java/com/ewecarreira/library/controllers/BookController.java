@@ -1,5 +1,7 @@
 package com.ewecarreira.library.controllers;
 
+import static org.springframework.http.HttpStatus.NOT_FOUND;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,16 +33,16 @@ import com.ewecarreira.library.services.BookService;
 public class BookController {
 
     @Autowired
-    BookService bookService;
+    private BookService bookService;
 
     @Autowired
-    ModelMapper modelMapper;
+    private ModelMapper modelMapper;
 
     @GetMapping("/{id}")
     public BookDTO get(@PathVariable Long id) {
         return bookService.getById(id)
                 .map(book -> modelMapper.map(book, BookDTO.class))
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new ResponseStatusException(NOT_FOUND));
     }
 
     @PostMapping
@@ -62,14 +64,14 @@ public class BookController {
                     book = bookService.update(book);
                     return modelMapper.map(book, BookDTO.class);
                 })
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new ResponseStatusException(NOT_FOUND));
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long id) {
         Book book = bookService.getById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new ResponseStatusException(NOT_FOUND));
         bookService.delete(book);
     }
 
