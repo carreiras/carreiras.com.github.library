@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 import com.ewecarreira.library.dtos.LoanFilterDTO;
 import com.ewecarreira.library.entities.Book;
@@ -12,6 +13,7 @@ import com.ewecarreira.library.exceptions.BusinessException;
 import com.ewecarreira.library.repositories.LoanRepository;
 import com.ewecarreira.library.services.LoanService;
 
+@Service
 public class LoanServiceImpl implements LoanService {
 
     private LoanRepository loanRepository;
