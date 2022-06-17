@@ -20,17 +20,15 @@ public class EmailServiceImpl implements EmailService {
     @Value("${application.email.lateloans.remetent}")
     private String remetent;
 
-    private String[] emails;
-
     @Override
-    public void sendEmails(String message, List<String> mailsList) {
-        String[] mails = mailsList.toArray(new String[mailsList.size()]);
+    public void sendEmails(String message, List<String> emailsList) {
+        String[] emails = emailsList.toArray(new String[emailsList.size()]);
 
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setFrom(remetent);
         mailMessage.setSubject("Livro com empréstimo atrasado");
         mailMessage.setText(message);
-        mailMessage.setTo(mails);
+        mailMessage.setTo(emails);
 
         javaMailSender.send(mailMessage);
     }
