@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.ewecarreira.library.dtos.LoanFilterDTO;
+import com.ewecarreira.library.entities.Book;
 import com.ewecarreira.library.entities.Loan;
 import com.ewecarreira.library.exceptions.BusinessException;
 import com.ewecarreira.library.repositories.LoanRepository;
@@ -40,5 +41,11 @@ public class LoanServiceImpl implements LoanService {
     @Override
     public Page<Loan> find(LoanFilterDTO loanFilterDTO, Pageable pageable) {
         return loanRepository.findByBookIsbnOrCustomer(loanFilterDTO.getIsbn(), loanFilterDTO.getCustomer(), pageable);
+    }
+
+    @Override
+    public Page<Loan> getLoansByBook(Book book, Pageable pageable) {
+        // TODO Auto-generated method stub
+        return null;
     }
 }
