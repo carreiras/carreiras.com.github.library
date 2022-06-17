@@ -28,6 +28,7 @@ import com.ewecarreira.library.dtos.BookDTO;
 import com.ewecarreira.library.entities.Book;
 import com.ewecarreira.library.exceptions.BusinessException;
 import com.ewecarreira.library.services.BookService;
+import com.ewecarreira.library.services.LoanService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @AutoConfigureMockMvc
@@ -42,7 +43,10 @@ public class BookControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private BookService bookService;
+    private BookService bookService;    
+    
+    @MockBean
+    private LoanService loanService;
 
     @Test
     @DisplayName("Deve criar um livro com sucesso")
