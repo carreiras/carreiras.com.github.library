@@ -22,9 +22,9 @@ public class LoanServiceImpl implements LoanService {
 
     @Override
     public Loan save(Loan loan) {
-        if (loanRepository.existsByBookAndNotReturned(loan.getBook())) 
+        if (loanRepository.existsByBookAndNotReturned(loan.getBook()))
             throw new BusinessException("Book already loaned");
-        
+
         return loanRepository.save(loan);
     }
 
@@ -45,7 +45,6 @@ public class LoanServiceImpl implements LoanService {
 
     @Override
     public Page<Loan> getLoansByBook(Book book, Pageable pageable) {
-        // TODO Auto-generated method stub
-        return null;
+        return loanRepository.findByBook(book, pageable);
     }
 }
