@@ -26,17 +26,20 @@ public class Loan {
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     @Column(length = 100)
     private String customer;
-    
+
+    @Column(name = "customer_email")
+    private String customerEmail;
+
     @ManyToOne
     @JoinColumn(name = "id_book")
     private Book book;
-    
+
     @Column
     private LocalDate loanDate;
-    
+
     @Column
     private Boolean returned;
 }
