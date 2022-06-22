@@ -35,10 +35,12 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RestController
-@RequestMapping("/api/books")
 @RequiredArgsConstructor
+@RequestMapping("/api/books")
 @Tag(name = "Books", description = "API responsible for book maintenance.")
 public class BookController {
 
@@ -53,6 +55,7 @@ public class BookController {
             @ApiResponse(responseCode = "400", description = "Failed to get book details.")
     })
     public BookDTO get(@PathVariable Long id) {
+        log.info("obtaining details for book id: {}", id);
         return bookService.getById(id)
                 .map(book -> modelMapper.map(book, BookDTO.class))
                 .orElseThrow(() -> new ResponseStatusException(NOT_FOUND));
@@ -66,6 +69,7 @@ public class BookController {
             @ApiResponse(responseCode = "400", description = "Failed to create book.")
     })
     public BookDTO create(@RequestBody @Valid BookDTO request) {
+        log.info("creating a book for isbn: {}", request.getIsbn());
         Book book = modelMapper.map(request, Book.class);
         Book bookSaved = bookService.save(book);
         BookDTO bookDTO = modelMapper.map(bookSaved, BookDTO.class);
@@ -80,6 +84,7 @@ public class BookController {
             @ApiResponse(responseCode = "400", description = "Failed to update book.")
     })
     public BookDTO update(@PathVariable Long id, @RequestBody @Valid BookDTO request) {
+        log.info("updating book of id: {}", id);
         return bookService.getById(id)
                 .map(book -> {
                     book.setAutor(request.getAutor());
@@ -98,6 +103,7 @@ public class BookController {
             @ApiResponse(responseCode = "400", description = "failed to delete book.")
     })
     public void delete(@PathVariable Long id) {
+        log.info("deleting book of id: {}", id);
         Book book = bookService.getById(id)
                 .orElseThrow(() -> new ResponseStatusException(NOT_FOUND));
         bookService.delete(book);
