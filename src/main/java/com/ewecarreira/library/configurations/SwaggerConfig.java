@@ -16,20 +16,29 @@ public class SwaggerConfig {
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .components(new Components())
-                .info(new Info()
-                        .title("Library API")
-                        .description("API do projeto de controle de aluguel de livros.")
-                        .version("1.0.0")
-                        .termsOfService("http://swagger.io/terms/")
-                        .license(new License().name("Apache 2.0").url("http://springdoc.org"))
-                        .contact(contact()));
+                .info(appInfo());
     }
 
-    private Contact contact() {
-        Contact contact = new Contact();
-        contact.setName("Ewerton Carreira");
-        contact.setUrl("http://github.com/carreiras");
-        contact.setEmail("ewertoncarreira@gmail.com");
-        return contact;
+    private Info appInfo() {
+        return new Info()
+                .title("Library API")
+                .description("API do projeto de controle de aluguel de livros.")
+                .version("1.0")
+                .termsOfService("http://swagger.io/terms/")
+                .license(appLicense())
+                .contact(appContact());
+    }
+
+    private License appLicense() {
+        return new License()
+                .name("Apache 2.0")
+                .url("http://springdoc.org");
+    }
+
+    private Contact appContact() {
+        return new Contact()
+                .name("Ewerton Carreira")
+                .url("https://github.com/carreiras")
+                .email("ewertoncarreira@gmail.com");
     }
 }
