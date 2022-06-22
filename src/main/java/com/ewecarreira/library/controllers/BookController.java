@@ -30,11 +30,16 @@ import com.ewecarreira.library.entities.Loan;
 import com.ewecarreira.library.services.BookService;
 import com.ewecarreira.library.services.LoanService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/books")
 @RequiredArgsConstructor
+@Tag(name = "Books", description = "API responsible for book maintenance.")
 public class BookController {
 
     private final BookService bookService;
@@ -42,6 +47,11 @@ public class BookController {
     private final ModelMapper modelMapper;
 
     @GetMapping("/{id}")
+    @Operation(summary = "Get details of a book by id.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Book details successfully obtained."),
+            @ApiResponse(responseCode = "400", description = "Failed to get book details.")
+    })
     public BookDTO get(@PathVariable Long id) {
         return bookService.getById(id)
                 .map(book -> modelMapper.map(book, BookDTO.class))
@@ -50,6 +60,11 @@ public class BookController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @Operation(summary = "Create a book.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Book created successfully."),
+            @ApiResponse(responseCode = "400", description = "Failed to create book.")
+    })
     public BookDTO create(@RequestBody @Valid BookDTO request) {
         Book book = modelMapper.map(request, Book.class);
         Book bookSaved = bookService.save(book);
@@ -59,6 +74,11 @@ public class BookController {
     }
 
     @PutMapping("/{id}")
+    @Operation(summary = "Update a book.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Book successfully updated."),
+            @ApiResponse(responseCode = "400", description = "Failed to update book.")
+    })
     public BookDTO update(@PathVariable Long id, @RequestBody @Valid BookDTO request) {
         return bookService.getById(id)
                 .map(book -> {
@@ -72,6 +92,11 @@ public class BookController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @Operation(summary = "Delete a book.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Successfully deleted book."),
+            @ApiResponse(responseCode = "400", description = "failed to delete book.")
+    })
     public void delete(@PathVariable Long id) {
         Book book = bookService.getById(id)
                 .orElseThrow(() -> new ResponseStatusException(NOT_FOUND));
@@ -79,6 +104,11 @@ public class BookController {
     }
 
     @GetMapping
+    @Operation(summary = "Find books by params.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Find books by parameters successfully obtained."),
+            @ApiResponse(responseCode = "400", description = "Failed to find books by parameters.")
+    })
     public Page<BookDTO> find(BookDTO bookDTO, Pageable pageRequest) {
         Book filter = modelMapper.map(bookDTO, Book.class);
         Page<Book> result = bookService.find(filter, pageRequest);
@@ -91,6 +121,11 @@ public class BookController {
     }
 
     @GetMapping("/{id}/loans")
+    @Operation(summary = "Search loans by book id.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Book loan search successfully obtained."),
+            @ApiResponse(responseCode = "400", description = "Failure to get book loans.")
+    })
     public Page<LoanDTO> loansByBook(@PathVariable Long id, Pageable pageable) {
         Book book = bookService.getById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
