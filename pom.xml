@@ -17,7 +17,7 @@
 
 	<properties>
 		<java.version>11</java.version>
-		<spring-boot-admin.version>2.6.7</spring-boot-admin.version>
+		<!-- <spring-boot-admin.version>2.6.7</spring-boot-admin.version> -->
 	</properties>
 
 	<dependencies>
@@ -41,10 +41,10 @@
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 
-		<dependency>
+		<!-- <dependency>
 			<groupId>de.codecentric</groupId>
 			<artifactId>spring-boot-admin-starter-client</artifactId>
-		</dependency>
+		</dependency> -->
 
 		<dependency>
 			<groupId>com.h2database</groupId>
@@ -83,7 +83,7 @@
 		</dependency>
 	</dependencies>
 
-	<dependencyManagement>
+	<!-- <dependencyManagement>
 		<dependencies>
 			<dependency>
 				<groupId>de.codecentric</groupId>
@@ -93,7 +93,7 @@
 				<scope>import</scope>
 			</dependency>
 		</dependencies>
-	</dependencyManagement>
+	</dependencyManagement> -->
 
 	<build>
 		<plugins>
