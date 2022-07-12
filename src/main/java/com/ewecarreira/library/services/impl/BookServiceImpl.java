@@ -30,7 +30,8 @@ public class BookServiceImpl implements BookService {
     @Override
     public Book save(Book book) {
         if (bookRepository.existsByIsbn(book.getIsbn()))
-            throw new BusinessException("Isbn já cadastrado.");
+            throw new BusinessException("ISBN já cadastrado. " +
+                    "Por favor, revise o ISBN do livro ou contate a sua gerência.");
 
         return bookRepository.save(book);
     }
@@ -66,4 +67,7 @@ public class BookServiceImpl implements BookService {
     public Optional<Book> getBookByIsbn(String isbn) {
         return bookRepository.findByIsbn(isbn);
     }
+
+
+    
 }

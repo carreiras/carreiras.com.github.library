@@ -75,7 +75,8 @@ public class BookServiceTest {
         Throwable exception = Assertions.catchThrowable(() -> bookService.save(book));
 
         // Validações
-        Assertions.assertThat(exception).isInstanceOf(BusinessException.class).hasMessage("Isbn já cadastrado.");
+        Assertions.assertThat(exception).isInstanceOf(BusinessException.class)
+                .hasMessage("ISBN já cadastrado. Por favor, revise o ISBN do livro ou contate a sua gerência.");
         Mockito.verify(bookRepository, Mockito.never()).save(book);
     }
 
