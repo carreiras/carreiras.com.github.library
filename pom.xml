@@ -10,25 +10,24 @@
 	</parent>
 
 	<groupId>com.ewecarreira</groupId>
-	<artifactId>library-api</artifactId>
+	<artifactId>library</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>library-api</name>
-	<description>API do projeto de controle de aluguel de livros</description>
+	<name>library</name>
+	<description>Exemplo de micro serviço para estudo de TDD</description>
 
 	<properties>
 		<java.version>11</java.version>
-		<!-- <spring-boot-admin.version>2.6.7</spring-boot-admin.version> -->
 	</properties>
 
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
+			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 
 		<dependency>
@@ -40,11 +39,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
-
-		<!-- <dependency>
-			<groupId>de.codecentric</groupId>
-			<artifactId>spring-boot-admin-starter-client</artifactId>
-		</dependency> -->
 
 		<dependency>
 			<groupId>com.h2database</groupId>
