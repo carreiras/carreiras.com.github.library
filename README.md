@@ -39,7 +39,7 @@ Para acessar a documentação da API acesse <http://localhost:8080/swagger-ui.ht
 - Hibernate Validator
 
 
-## Author
+## Autor
 
 ### Ewerton Carreira
 
