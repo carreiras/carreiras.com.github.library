@@ -15,12 +15,12 @@ public class BookDTO {
 
     private Long id;
 
-    @NotEmpty
+    @NotEmpty(message = "Título deve ser informado.")
     private String title;
 
-    @NotEmpty
+    @NotEmpty(message = "Autor deve ser informado.")
     private String autor;
     
-    @NotEmpty
+    @NotEmpty(message = "ISBN deve ser informado.")
     private String isbn;
 }
