@@ -15,7 +15,7 @@ public class BookDTO {
 
     private Long id;
 
-    @NotEmpty(message = "Título deve ser informado.")
+    @NotEmpty(message = "Título deve ser informado!")
     private String title;
 
     @NotEmpty(message = "Autor deve ser informado.")
