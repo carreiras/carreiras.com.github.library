@@ -33,7 +33,7 @@ Para acessar a documentação da API acesse <http://localhost:8080/swagger-ui.ht
 - Spring Mail
 - Spring Actuator
 - Spring Doc Open API
-- H2 Database
+- H2
 - Lombok
 - ModelMapper
 - Hibernate Validator
