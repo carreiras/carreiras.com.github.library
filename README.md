@@ -11,7 +11,7 @@ Exemplo de micro serviço para estudo de TDD.
 $ git clone https://github.com/carreiras/library.git
 
 # Abra ou importe o projeto no IntelliJ IDEA (ou uma IDE de sua preferência)
-# Execute ReactiveExamplesApplication
+# Execute LibraryApplication
 O servidor iniciará na porta:8080
 
 Para acessar a documentação da API acesse <http://localhost:8080/swagger-ui.html>
