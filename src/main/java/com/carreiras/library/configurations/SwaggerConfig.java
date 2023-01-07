@@ -22,7 +22,7 @@ public class SwaggerConfig {
     private Info appInfo() {
         return new Info()
                 .title("Library")
-                .description("Example of microservice for TDD study")
+                .description("Example of microservice for TDD study.")
                 .version("1.0")
                 .termsOfService("http://swagger.io/terms/")
                 .license(appLicense())
