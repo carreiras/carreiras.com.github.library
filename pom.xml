@@ -9,10 +9,10 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
-	<groupId>com.ewecarreira</groupId>
-	<artifactId>library</artifactId>
+	<groupId>com.carreiras</groupId>
+	<artifactId>library-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>library</name>
+	<name>library-api</name>
 	<description>Exemplo de micro serviço para estudo de TDD</description>
 
 	<properties>
