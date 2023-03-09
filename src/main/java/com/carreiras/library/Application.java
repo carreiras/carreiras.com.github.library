@@ -8,7 +8,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @EnableScheduling
 @SpringBootApplication
-public class LibraryApplication {
+public class Application {
 
 	@Bean
 	public ModelMapper modelMapper() {
@@ -16,6 +16,6 @@ public class LibraryApplication {
 	}
 
 	public static void main(String[] args) {
-		SpringApplication.run(LibraryApplication.class, args);
+		SpringApplication.run(Application.class, args);
 	}
 }
