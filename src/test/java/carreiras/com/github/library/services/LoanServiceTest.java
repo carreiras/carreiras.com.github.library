@@ -1,4 +1,4 @@
-package com.carreiras.library.services;
+package carreiras.com.github.library.services;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -23,7 +23,6 @@ import carreiras.com.github.library.entities.Book;
 import carreiras.com.github.library.entities.Loan;
 import carreiras.com.github.library.exceptions.BusinessException;
 import carreiras.com.github.library.repositories.LoanRepository;
-import carreiras.com.github.library.services.LoanService;
 import carreiras.com.github.library.services.impl.LoanServiceImpl;
 
 @ActiveProfiles("test")
@@ -106,18 +105,18 @@ public class LoanServiceTest {
     @Test
     @DisplayName("Deve obter as informações de um empréstimo pelo Id")
     public void getLoanDetailsTest() {
-        //  Cenário
+        // Cenário
         Long id = 1L;
 
         Loan loan = createLoan();
         loan.setId(id);
-        
+
         Mockito.when(loanRepository.findById(id)).thenReturn(Optional.of(loan));
 
         // Execução
         Optional<Loan> result = loanService.getById(id);
 
-        //  Validações
+        // Validações
         Assertions.assertThat(result.isPresent()).isTrue();
         Assertions.assertThat(result.get().getId()).isEqualTo(id);
         Assertions.assertThat(result.get().getCustomer()).isEqualTo(loan.getCustomer());

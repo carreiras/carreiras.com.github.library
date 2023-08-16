@@ -1,4 +1,4 @@
-package com.carreiras.library.services;
+package carreiras.com.github.library.services;
 
 import static org.mockito.Mockito.times;
 
@@ -23,7 +23,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import carreiras.com.github.library.entities.Book;
 import carreiras.com.github.library.exceptions.BusinessException;
 import carreiras.com.github.library.repositories.BookRepository;
-import carreiras.com.github.library.services.BookService;
 import carreiras.com.github.library.services.impl.BookServiceImpl;
 
 @ActiveProfiles("test")

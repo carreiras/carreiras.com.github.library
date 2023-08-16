@@ -26,7 +26,6 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import carreiras.com.github.library.controllers.BookController;
 import carreiras.com.github.library.dtos.BookDTO;
 import carreiras.com.github.library.entities.Book;
 import carreiras.com.github.library.exceptions.BusinessException;
@@ -45,8 +44,8 @@ public class BookControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private BookService bookService;    
-    
+    private BookService bookService;
+
     @MockBean
     private LoanService loanService;
 

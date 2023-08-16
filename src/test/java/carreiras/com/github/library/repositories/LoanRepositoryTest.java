@@ -1,4 +1,4 @@
-package com.carreiras.library.repositories;
+package carreiras.com.github.library.repositories;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -17,7 +17,6 @@ import org.springframework.test.context.ActiveProfiles;
 
 import carreiras.com.github.library.entities.Book;
 import carreiras.com.github.library.entities.Loan;
-import carreiras.com.github.library.repositories.LoanRepository;
 
 @DataJpaTest
 @ActiveProfiles("test")
@@ -89,7 +88,8 @@ public class LoanRepositoryTest {
                 LocalDate.now().minusDays(4));
 
         // Validações
-        Assertions.assertThat(result).isEmpty();;
+        Assertions.assertThat(result).isEmpty();
+        ;
     }
 
     public Loan createAndPersistLoan(LocalDate loanDate) {

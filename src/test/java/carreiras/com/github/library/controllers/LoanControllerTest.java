@@ -1,4 +1,4 @@
-package com.carreiras.library.controllers;
+package carreiras.com.github.library.controllers;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -25,10 +25,8 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import com.carreiras.library.services.LoanServiceTest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import carreiras.com.github.library.controllers.LoanController;
 import carreiras.com.github.library.dtos.LoanDTO;
 import carreiras.com.github.library.dtos.LoanFilterDTO;
 import carreiras.com.github.library.dtos.ReturnedLoanDTO;
@@ -37,6 +35,7 @@ import carreiras.com.github.library.entities.Loan;
 import carreiras.com.github.library.exceptions.BusinessException;
 import carreiras.com.github.library.services.BookService;
 import carreiras.com.github.library.services.LoanService;
+import carreiras.com.github.library.services.LoanServiceTest;
 
 @AutoConfigureMockMvc
 @ActiveProfiles("test")

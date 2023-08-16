@@ -1,4 +1,4 @@
-package com.carreiras.library.repositories;
+package carreiras.com.github.library.repositories;
 
 import java.util.Optional;
 
@@ -11,7 +11,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.ActiveProfiles;
 
 import carreiras.com.github.library.entities.Book;
-import carreiras.com.github.library.repositories.BookRepository;
 
 @DataJpaTest
 @ActiveProfiles("test")

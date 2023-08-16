@@ -20,7 +20,7 @@ public class BookDTO {
 
     @NotEmpty(message = "Autor deve ser informado!")
     private String autor;
-    
+
     @NotEmpty(message = "ISBN deve ser informado!")
     private String isbn;
 }

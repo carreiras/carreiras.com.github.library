@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class LoanFilterDTO {
-    
+
     private String isbn;
     private String customer;
 }

@@ -80,9 +80,9 @@ public class LoanController {
 
     @GetMapping
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "201", description = "Find loans by parameters successfully obtained."),
-        @ApiResponse(responseCode = "400", description = "Failed to find loans by parameters.")
-})
+            @ApiResponse(responseCode = "201", description = "Find loans by parameters successfully obtained."),
+            @ApiResponse(responseCode = "400", description = "Failed to find loans by parameters.")
+    })
     public Page<LoanDTO> find(LoanFilterDTO filter, Pageable pageRequest) {
         Page<Loan> result = loanService.find(filter, pageRequest);
         List<LoanDTO> list = result.getContent()

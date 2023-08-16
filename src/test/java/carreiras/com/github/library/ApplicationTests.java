@@ -1,4 +1,4 @@
-package com.carreiras.library;
+package carreiras.com.github.library;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
