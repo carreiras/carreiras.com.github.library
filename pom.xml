@@ -9,10 +9,10 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
-	<groupId>com.carreiras</groupId>
+	<groupId>com.carreiras.github</groupId>
 	<artifactId>java-spring-boot-library</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>library-api</name>
+	<name>java-spring-boot-library</name>
 	<description>Exemplo de micro serviço para estudo de TDD</description>
 
 	<properties>
