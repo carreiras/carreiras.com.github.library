@@ -10,7 +10,7 @@
 	</parent>
 
 	<groupId>com.carreiras</groupId>
-	<artifactId>library-api</artifactId>
+	<artifactId>java-spring-boot-library</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>library-api</name>
 	<description>Exemplo de micro serviço para estudo de TDD</description>
